@@ -1,0 +1,31 @@
+# YOLO数据集配置文件
+# 数据集路径 (使用绝对路径)
+path: d:\项目\zsf\yolo_dataset_split
+
+# 训练集、验证集和测试集的相对路径
+train: train/images
+val: val/images
+test: test/images
+
+# 类别数量
+nc: 17
+
+# 类别名称 (按照classes.txt中的顺序)
+names:
+  - button
+  - boardback
+  - box-battery-g
+  - box-battery-w
+  - box-dispanel
+  - box-screen
+  - box-screen2
+  - screen
+  - burner
+  - burner-inside
+  - pcb
+  - dispanel
+  - boardback-f
+  - cover
+  - cover-e
+  - metalpallet
+  - metalpallet-inside

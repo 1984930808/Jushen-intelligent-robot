@@ -1,0 +1,87 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 虚拟环境
+venv/
+env/
+ENV/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 数据集（数据集通常很大，不建议上传到GitHub）
+yolo_dataset/
+yolo_dataset_split/
+yolo_dataset_temp/
+data/
+group1/
+group2/
+group3/
+images/
+labels/
+
+# 训练结果
+runs/
+results/
+*.pt
+*.pth
+*.onnx
+*.engine
+
+# 临时文件
+*.tmp
+*.log
+*.cache
+*.zip
+*.tar.gz
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# 测试文件
+test_images/
+test_videos/
+test.jpg
+test.mp4
+result.jpg
+result.mp4
+results.png
+
+# 配置文件（可能包含敏感信息）
+config.local.yaml
+secrets.yaml
+
+# 系统文件
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# 其他
+*.bak
+*.backup

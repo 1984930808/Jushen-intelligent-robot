@@ -1,0 +1,17 @@
+button
+boardback
+box-battery-g
+box-battery-w
+box-dispanel
+box-screen
+box-screen2
+screen
+burner
+burner-inside
+pcb
+dispanel
+boardback-f
+cover
+cover-e
+metalpallet
+metalpallet-inside

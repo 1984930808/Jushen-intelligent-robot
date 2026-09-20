@@ -1,0 +1,29 @@
+# YOLO目标检测项目依赖包
+
+# 深度学习框架
+torch>=2.0.0
+torchvision>=0.15.0
+
+# YOLO框架
+ultralytics>=8.0.0
+
+# 图像处理
+opencv-python>=4.8.0
+Pillow>=10.0.0
+
+# 数据处理
+numpy>=1.24.0
+pandas>=2.0.0
+
+# 可视化
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# 工具库
+tqdm>=4.65.0
+pyyaml>=6.0
+requests>=2.31.0
+
+# 可选：GPU支持 (根据CUDA版本选择)
+# torch>=2.0.0+cu118 --index-url https://download.pytorch.org/whl/cu118
+# torch>=2.0.0+cu121 --index-url https://download.pytorch.org/whl/cu121
