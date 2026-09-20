@@ -33,13 +33,13 @@
 - box-screen (屏幕盒)
 - box-screen2 (屏幕盒2)
 - screen (屏幕)
-- burner (燃烧器)
-- burner-inside (燃烧器内部)
+- burner (烧炉)
+- burner-inside (烧炉内槽)
 - pcb (电路板)
 - dispanel (显示面板)
-- boardback-f (前背板)
-- cover (盖子)
-- cover-e (电子盖)
+- boardback-f (完整背板)
+- cover (后盖)
+- cover-e (空后盖)
 - metalpallet (金属托盘)
 - metalpallet-inside (金属托盘内部)
 
@@ -201,11 +201,11 @@ yolo val model=best.pt data=data.yaml split=test
 
 - 提交 Issue
 - 发送 Pull Request
-- 邮件联系: [your-email@example.com]
+- 邮件联系: [1984930808@qq.com]
 
 ## 更新日志
 
-### v1.0.0 (2024-09-20)
+### v1.0.0 (2026-09-20)
 - 初始版本发布
 - 支持17个类别的目标检测
 - 完整的训练和预测流程
