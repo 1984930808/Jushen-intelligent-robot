@@ -6,6 +6,10 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-red.svg)](https://pytorch.org/)
 
 一个基于YOLOv11的工业目标检测项目，支持17个类别的检测。
+## 数据集
+
+通过网盘分享的文件：dataset.zip
+链接: https://pan.baidu.com/s/1bTLMJsUC7hQVHTSQraW0ZQ 提取码: 4kgy
 
 ## 项目简介
 
@@ -174,7 +178,7 @@ model.train(
 
 ```bash
 yolo val model=best.pt data=data.yaml split=test
-```
+``` 
 
 ## 贡献指南
 
