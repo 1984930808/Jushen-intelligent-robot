@@ -48,7 +48,6 @@ labels/
 # 训练结果
 runs/
 results/
-*.pt
 *.pth
 *.onnx
 *.engine

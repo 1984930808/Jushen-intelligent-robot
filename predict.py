@@ -7,10 +7,24 @@ YOLO模型预测脚本
 
 from __future__ import annotations
 
-import cv2
-from pathlib import Path
-from ultralytics import YOLO
 import argparse
+import time
+from pathlib import Path
+
+import cv2
+from ultralytics import YOLO
+
+
+def print_frame_time(frame_num: int, total_time: int) -> None:
+    print(
+        "Current Frame:"
+        + str(frame_num)
+        + ",total cost time:"
+        + str(total_time)
+        + " ms,average time:"
+        + str(total_time / frame_num)
+        + " ms"
+    )
 
 def predict_on_image(model_path: str, image_path: str, output_path: str = None, conf: float = 0.25, iou: float = 0.7):
     """
@@ -25,9 +39,17 @@ def predict_on_image(model_path: str, image_path: str, output_path: str = None, 
     """
     # 加载模型
     model = YOLO(model_path)
-    
-    # 进行预测
-    results = model(image_path, conf=conf, iou=iou)
+
+    frame_num = 0
+    total_time = 0
+
+    curtime = int(time.time() * 1000)
+    results = model(image_path, conf=conf, iou=iou, verbose=False)
+    curtime2 = int(time.time() * 1000)
+    timecost = curtime2 - curtime
+    frame_num += 1
+    total_time += timecost
+    print_frame_time(frame_num, total_time)
     
     # 显示结果
     for result in results:
@@ -75,21 +97,31 @@ def predict_on_video(model_path: str, video_path: str, output_path: str = None, 
         out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
     
     # 逐帧处理
-    frame_count = 0
+    frame_num = 0
+    total_time = 0
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
             break
         
-        frame_count += 1
-        if frame_count % 10 == 0:  # 每10帧打印一次进度
-            print(f"处理第 {frame_count} 帧...")
-        
-        # 进行预测
-        results = model(frame, conf=conf, iou=iou)
+        curtime = int(time.time() * 1000)
+        results = model(frame, conf=conf, iou=iou, verbose=False)
+        curtime2 = int(time.time() * 1000)
+        timecost = curtime2 - curtime
+        frame_num += 1
+        total_time += timecost
+        print_frame_time(frame_num, total_time)
+
+        result = results[0]
+        print(f"检测到 {len(result)} 个物体")
+        for box in result.boxes:
+            class_id = int(box.cls[0])
+            class_name = result.names[class_id]
+            confidence = float(box.conf[0])
+            print(f"  {class_name}: {confidence:.2f}")
         
         # 在帧上绘制结果
-        annotated_frame = results[0].plot()
+        annotated_frame = result.plot()
         
         # 显示结果
         cv2.imshow('YOLO Prediction', annotated_frame)
@@ -127,17 +159,32 @@ def predict_on_webcam(model_path: str, conf: float = 0.25, iou: float = 0.7):
     cap = cv2.VideoCapture(0)  # 0表示默认摄像头
     
     print("按'q'退出摄像头预测")
-    
+
+    frame_num = 0
+    total_time = 0
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
             break
         
-        # 进行预测
-        results = model(frame, conf=conf, iou=iou)
+        curtime = int(time.time() * 1000)
+        results = model(frame, conf=conf, iou=iou, verbose=False)
+        curtime2 = int(time.time() * 1000)
+        timecost = curtime2 - curtime
+        frame_num += 1
+        total_time += timecost
+        print_frame_time(frame_num, total_time)
+
+        result = results[0]
+        print(f"检测到 {len(result)} 个物体")
+        for box in result.boxes:
+            class_id = int(box.cls[0])
+            class_name = result.names[class_id]
+            confidence = float(box.conf[0])
+            print(f"  {class_name}: {confidence:.2f}")
         
         # 在帧上绘制结果
-        annotated_frame = results[0].plot()
+        annotated_frame = result.plot()
         
         # 显示结果
         cv2.imshow('YOLO Webcam Prediction', annotated_frame)
@@ -178,16 +225,31 @@ def predict_on_directory(model_path: str, directory_path: str, output_dir: str =
         output_path.mkdir(parents=True, exist_ok=True)
     
     # 逐张处理
+    frame_num = 0
+    total_time = 0
     for i, image_file in enumerate(image_files):
         print(f"处理 {i+1}/{len(image_files)}: {image_file.name}")
         
-        # 进行预测
-        results = model(str(image_file), conf=conf, iou=iou)
+        curtime = int(time.time() * 1000)
+        results = model(str(image_file), conf=conf, iou=iou, verbose=False)
+        curtime2 = int(time.time() * 1000)
+        timecost = curtime2 - curtime
+        frame_num += 1
+        total_time += timecost
+        print_frame_time(frame_num, total_time)
+
+        result = results[0]
+        print(f"检测到 {len(result)} 个物体")
+        for box in result.boxes:
+            class_id = int(box.cls[0])
+            class_name = result.names[class_id]
+            confidence = float(box.conf[0])
+            print(f"  {class_name}: {confidence:.2f}")
         
         # 如果指定了输出目录，保存结果
         if output_dir:
             output_file = output_path / f"result_{image_file.name}"
-            results[0].save(str(output_file))
+            result.save(str(output_file))
 
 def main():
     parser = argparse.ArgumentParser(description='YOLO模型预测脚本')
