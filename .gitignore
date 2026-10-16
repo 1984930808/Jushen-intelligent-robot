@@ -34,7 +34,8 @@ ENV/
 *~
 .DS_Store
 
-# 数据集（数据集通常很大，不建议上传到GitHub）
+# 大数据集与压缩包（通过网盘分发）
+dataset/
 yolo_dataset/
 yolo_dataset_split/
 yolo_dataset_temp/
@@ -44,8 +45,10 @@ group2/
 group3/
 images/
 labels/
+dataset.zip
+*.tar.gz
 
-# 训练结果
+# 训练过程输出
 runs/
 results/
 *.pth
@@ -56,21 +59,22 @@ results/
 *.tmp
 *.log
 *.cache
-*.zip
-*.tar.gz
+logs/
 
-# Jupyter Notebook
+# Jupyter
 .ipynb_checkpoints
 *.ipynb
 
-# 测试文件
+# 本地临时测试产物（保留 demo/sample.png）
 test_images/
 test_videos/
 test.jpg
 test.mp4
 result.jpg
 result.mp4
-results.png
+
+# 本地大视频（不纳入开源分发）
+*.mkv
 
 # 配置文件（可能包含敏感信息）
 config.local.yaml
@@ -78,9 +82,12 @@ secrets.yaml
 
 # 系统文件
 Thumbs.db
-.DS_Store
 desktop.ini
 
 # 其他
 *.bak
 *.backup
+
+# 注意：以下指标图用于开源文档，应纳入版本库
+# docs/assets/*.png
+# results.png / PR_curve.png 等可保留在仓库根目录或 docs/assets

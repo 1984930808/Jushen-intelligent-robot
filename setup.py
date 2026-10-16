@@ -4,18 +4,23 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 with open("requirements.txt", "r", encoding="utf-8") as fh:
-    requirements = [line.strip() for line in fh if line.strip() and not line.startswith("#")]
+    requirements = [
+        line.strip()
+        for line in fh
+        if line.strip() and not line.startswith("#")
+    ]
 
 setup(
-    name="yolo-detection",
-    version="1.0.0",
-    author="Your Name",
-    author_email="your-email@example.com",
-    description="YOLO目标检测项目 - 工业组件检测",
+    name="zsf-yolo-detection",
+    version="1.1.0",
+    author="ZSF Project Authors",
+    author_email="1984930808@qq.com",
+    description="YOLO 工业组件目标检测开源包",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/your-username/yolo-detection",
+    url="https://github.com/your-org/zsf",
     packages=find_packages(),
+    py_modules=["config", "verify_dataset", "run_demo", "reproduce"],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
@@ -31,8 +36,8 @@ setup(
     install_requires=requirements,
     entry_points={
         "console_scripts": [
-            "yolo-train=train:main",
-            "yolo-predict=predict:main",
+            "zsf-demo=run_demo:main",
+            "zsf-reproduce=reproduce:main",
         ],
     },
 )

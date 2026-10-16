@@ -1,6 +1,5 @@
-# YOLO数据集配置文件
-# 数据集路径 (使用绝对路径)
-path: d:\项目\zsf\yolo_dataset_split
+# YOLO数据集配置文件（相对项目根目录，异地可复现）
+path: dataset
 
 # 训练集、验证集和测试集的相对路径
 train: train/images
@@ -10,7 +9,7 @@ test: test/images
 # 类别数量
 nc: 17
 
-# 类别名称 (按照classes.txt中的顺序)
+# 类别名称（与 classes.txt 保持一致）
 names:
   - button
   - boardback

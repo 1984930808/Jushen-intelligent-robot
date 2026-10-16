@@ -1,10 +1,10 @@
-# YOLO目标检测项目依赖包
+# YOLO 工业目标检测项目依赖
 
 # 深度学习框架
 torch>=2.0.0
 torchvision>=0.15.0
 
-# YOLO框架
+# YOLO 框架
 ultralytics>=8.0.0
 
 # 图像处理
@@ -24,6 +24,9 @@ tqdm>=4.65.0
 pyyaml>=6.0
 requests>=2.31.0
 
-# 可选：GPU支持 (根据CUDA版本选择)
-# torch>=2.0.0+cu118 --index-url https://download.pytorch.org/whl/cu118
-# torch>=2.0.0+cu121 --index-url https://download.pytorch.org/whl/cu121
+# 测试
+pytest>=7.0.0
+
+# 可选：GPU 版 PyTorch（按本机 CUDA 选择）
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+# pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121

@@ -1,4 +1,4 @@
-name: YOLO Training
+name: CI
 
 on:
   push:
@@ -7,45 +7,80 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  train:
+  docs-and-structure:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    
-    - name: Validate dataset
-      run: |
-        python verify_dataset.py
-    
-    - name: Run basic tests
-      run: |
-        python -c "from ultralytics import YOLO; print('YOLO import successful')"
+      - uses: actions/checkout@v4
+
+      - name: Check required open-source files
+        run: |
+          test -f README.md
+          test -f LICENSE
+          test -f CONTRIBUTING.md
+          test -f CHANGELOG.md
+          test -f requirements.txt
+          test -f data.yaml
+          test -d docs
+          test -f docs/README.md
+          test -f docs/algorithm.md
+          test -f docs/install.md
+          test -f docs/usage.md
+          test -f docs/dataset.md
+          test -f docs/evaluation.md
+          test -f docs/api.md
+          test -f demo/sample.png
+          test -f run_demo.py
+          test -f verify_dataset.py
+          test -f reproduce.py
+          test -d tests
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Validate data.yaml path is relative
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import yaml
+          data = yaml.safe_load(Path("data.yaml").read_text(encoding="utf-8"))
+          assert not Path(data["path"]).is_absolute(), data["path"]
+          print("data.yaml path ok:", data["path"])
+          PY
+
+      - name: Run unit tests
+        run: python -m pytest tests -q
+
+      - name: Run demo
+        run: python run_demo.py
 
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8
-    
-    - name: Lint with flake8
-      run: |
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Install flake8
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+
+      - name: Lint
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics

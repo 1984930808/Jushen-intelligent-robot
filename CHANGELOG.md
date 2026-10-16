@@ -1,70 +1,61 @@
 # 更新日志
 
-本文档记录了项目的所有重要更改。
+本文档记录项目的重要变更、算法优化与可复现性改进。
 
-## [1.0.0] - 2024-09-20
+## [1.1.0] - 2026-10-16
 
 ### 新增
-- 🎉 初始版本发布
-- ✅ 支持17个工业组件类别的目标检测
-- ✅ 完整的数据集处理流程（XML/JSON格式转换）
-- ✅ 自动数据集分割（训练集/验证集/测试集）
-- ✅ YOLOv11模型训练脚本
-- ✅ 多种预测模式（图片/视频/摄像头/批量）
-- ✅ 支持GPU和CPU训练
-- ✅ 完整的配置文件和参数调优
-- ✅ 详细的使用文档和FAQ
+- 新增 `docs/` 技术文档（原理、安装、使用、数据、评估、API）
+- 新增官方 Demo：`run_demo.py` + `demo/sample.png`
+- 新增 `verify_dataset.py` 数据集校验脚本
+- 新增 `reproduce.py` 异地一键复现脚本（可选 `--eval` 核对指标）
+- 新增 `tests/` 自动化测试
+- 在 README / docs 中补充性能指标（mAP / Precision / Recall）与引用方式
+
+### 变更
+- `data.yaml` 改为相对路径 `dataset/`，去除本机绝对路径
+- `config.py` / `train.py` / `predict_simple.py` 对齐可复现默认路径
+- 统一类别为 17 类，与发布权重一致
+- 完善 `LICENSE` / `CONTRIBUTING.md` / `FAQ.md` / CI 工作流
+
+### 算法与工程优化点
+- 明确视觉检测与机械臂规划的模块边界，避免指标误导
+- 指标复现增加 ±0.02 容差说明，降低异地环境波动误判
+- CI 改为执行文档存在性检查、数据集配置校验、Demo 与 pytest
+
+## [1.0.0] - 2026-09-20
+
+### 新增
+- 初始版本发布
+- 支持 17 个工业组件类别目标检测
+- 完整数据处理流程（XML/JSON 转换与划分）
+- YOLOv11 训练与多模式预测（图片/视频/摄像头/批量）
+- MIT 开源许可
 
 ### 支持的类别
-- button (按钮)
-- boardback (背板)
-- box-battery-g (绿色电池盒)
-- box-battery-w (白色电池盒)
-- box-dispanel (显示面板盒)
-- box-screen (屏幕盒)
-- box-screen2 (屏幕盒2)
-- screen (屏幕)
-- burner (燃烧器)
-- burner-inside (燃烧器内部)
-- pcb (电路板)
-- dispanel (显示面板)
-- boardback-f (前背板)
-- cover (盖子)
-- cover-e (电子盖)
-- metalpallet (金属托盘)
-- metalpallet-inside (金属托盘内部)
+- button, boardback, box-battery-g, box-battery-w, box-dispanel
+- box-screen, box-screen2, screen, burner, burner-inside
+- pcb, dispanel, boardback-f, cover, cover-e
+- metalpallet, metalpallet-inside
 
 ### 技术特性
-- 基于Ultralytics YOLOv11
-- 支持PyTorch 2.0+
-- 完整的CI/CD配置
-- MIT开源许可证
+- 基于 Ultralytics YOLOv11
+- 支持 PyTorch 2.0+
 
 ## 计划功能
 
-### [1.1.0] - 计划中
-- [ ] 模型导出功能 (ONNX, TensorRT)
-- [ ] 自定义模型配置支持
-- [ ] 更多数据增强选项
-- [ ] 推理速度优化
-
 ### [1.2.0] - 计划中
-- [ ] Web界面支持
-- [ ] REST API接口
-- [ ] 视频流实时检测
-- [ ] 模型性能分析工具
+- [ ] 模型导出（ONNX / TensorRT）
+- [ ] 更多数据增强选项
+- [ ] 推理速度专项优化
 
 ### [2.0.0] - 计划中
-- [ ] 实例分割支持
-- [ ] 姿态估计支持
-- [ ] 多模型集成
-- [ ] 分布式训练支持
+- [ ] Web / API 接口
+- [ ] 与外部机械臂规划系统的示例对接文档
 
 ## 版本说明
 
-- **新增**: 新功能
-- **变更**: 现有功能的更改
-- **弃用**: 即将移除的功能
-- **移除**: 已移除的功能
-- **修复**: Bug修复
-- **安全**: 安全相关的修复
+- **新增**: 新功能  
+- **变更**: 现有行为调整  
+- **修复**: Bug 修复  
+- **文档**: 文档更新  

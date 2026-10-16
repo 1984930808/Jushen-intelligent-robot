@@ -15,4 +15,3 @@ cover
 cover-e
 metalpallet
 metalpallet-inside
-block

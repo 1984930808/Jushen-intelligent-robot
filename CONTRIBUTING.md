@@ -1,156 +1,90 @@
 # 贡献指南
 
-感谢您对YOLO目标检测项目的关注！我们欢迎任何形式的贡献。
+感谢关注本 YOLO 工业目标检测项目。我们欢迎报告问题、修复 Bug 与提交新功能。
 
-## 如何贡献
+## 报告问题
 
-### 报告问题
+1. 先搜索 Issues，避免重复  
+2. 新建 Issue，说明环境（OS / Python / GPU）  
+3. 给出最小复现步骤与日志/截图  
 
-如果您发现了bug或有功能建议，请：
+## 提交代码
 
-1. 检查现有的Issues，确保问题没有被报告过
-2. 创建新的Issue，详细描述问题
-3. 提供复现步骤和相关信息
-4. 如果可能，附上截图或日志
-
-### 提交代码
-
-1. **Fork 本仓库**
-   ```bash
-   # 在GitHub上点击Fork按钮
-   ```
-
-2. **克隆您的Fork**
-   ```bash
-   git clone https://github.com/your-username/yolo-detection.git
-   cd yolo-detection
-   ```
-
-3. **创建特性分支**
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-4. **进行更改**
-   - 遵循现有的代码风格
-   - 添加必要的注释
-   - 确保代码通过测试
-
-5. **提交更改**
-   ```bash
-   git add .
-   git commit -m "描述您的更改"
-   ```
-
-6. **推送到您的Fork**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-7. **创建Pull Request**
-   - 在GitHub上创建Pull Request
-   - 详细描述您的更改
-   - 等待代码审查
-
-## 代码规范
-
-### Python代码风格
-
-- 遵循PEP 8规范
-- 使用有意义的变量名和函数名
-- 添加必要的文档字符串
-- 保持函数简洁，单一职责
-
-### 提交信息规范
-
-使用清晰的提交信息格式：
-
-```
-类型: 简短描述
-
-详细描述（可选）
-```
-
-类型包括：
-- `feat`: 新功能
-- `fix`: 修复bug
-- `docs`: 文档更新
-- `style`: 代码格式调整
-- `refactor`: 代码重构
-- `test`: 测试相关
-- `chore`: 构建/工具相关
-
-示例：
-```
-feat: 添加视频预测功能
-
-支持对视频文件进行实时目标检测，可以保存检测结果
-```
-
-## 开发环境设置
-
-### 1. 克隆仓库
-
-```bash
-git clone https://github.com/your-username/yolo-detection.git
-cd yolo-detection
-```
-
-### 2. 创建虚拟环境
+1. Fork 本仓库并克隆到本地  
+2. 创建特性分支：`git checkout -b feature/your-feature-name`  
+3. 创建虚拟环境并安装依赖：
 
 ```bash
 python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# 或
-venv\Scripts\activate  # Windows
-```
-
-### 3. 安装依赖
-
-```bash
+# Windows: venv\Scripts\activate
+# Linux/macOS: source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. 运行测试
+4. 修改代码，保持风格一致并补充必要注释  
+5. 本地验证：
 
 ```bash
-python -m pytest tests/
+python verify_dataset.py   # 若已准备 dataset/
+python run_demo.py
+python -m pytest tests -q
+# 或一键
+python reproduce.py
 ```
 
-## 测试指南
+6. 提交并推送，再创建 Pull Request，说明动机、改动点与测试结果  
 
-在提交代码前，请确保：
+## 代码规范
 
-1. 代码能够正常运行
-2. 不破坏现有功能
-3. 添加适当的测试用例
-4. 通过所有测试
+- 遵循 PEP 8  
+- 函数保持单一职责，必要时补充 docstring  
+- 不要把本机绝对路径写入 `data.yaml` 或其他配置  
+- 不要提交大数据集、临时视频、密钥文件  
+
+### 提交信息
+
+```text
+类型: 简短描述
+
+详细说明（可选）
+```
+
+类型：`feat` / `fix` / `docs` / `style` / `refactor` / `test` / `chore`
+
+示例：
+
+```text
+fix: 修正 data.yaml 相对路径以便异地复现
+```
+
+## 测试要求
+
+提交前至少保证：
+
+1. `python run_demo.py` 无报错  
+2. `python -m pytest tests -q` 全部通过  
+3. 若改动数据管线，需 `python verify_dataset.py` 通过  
 
 ## 文档贡献
 
-如果您想改进文档：
+文档位于：
 
-1. Fork仓库
-2. 修改相应的Markdown文件
-3. 提交Pull Request
-4. 说明文档改进的内容
+- `README.md`  
+- `docs/`  
+- `FAQ.md` / `CHANGELOG.md`  
+
+文档改动请同步更新 `CHANGELOG.md`。
 
 ## 行为准则
 
-- 尊重所有贡献者
-- 使用友好的语言
-- 接受建设性的批评
-- 关注对社区最有利的事情
+- 尊重贡献者，使用友善措辞  
+- 接受建设性反馈，以可维护性与可复现性优先  
 
 ## 许可证
 
-通过贡献代码，您同意您的贡献将在MIT许可证下发布。
+贡献代码即表示同意以 MIT 许可证发布。详见 [LICENSE](LICENSE)。
 
 ## 联系方式
 
-如有疑问，请通过以下方式联系：
-
-- 提交Issue
-- 发送邮件至 [your-email@example.com]
-
-感谢您的贡献！
+- GitHub Issue  
+- 邮件：1984930808@qq.com  
